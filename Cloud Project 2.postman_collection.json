@@ -1,0 +1,332 @@
+{
+	"info": {
+		"_postman_id": "e79c3517-a519-4ae2-a72e-ab184697185a",
+		"name": "Cloud Project 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Event",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"NFL Championship3\",\n    \"location\": \"Levis Stadium3\",\n    \"address\": \"235 Great America Pkwy3\",\n    \"city\": \"San Jose\",\n    \"state\": \"CA3\",\n    \"postal_code\": \"94526\",\n    \"categories\": [\n        \"sports3\",\n        \"active life3\",\n        \"football3\"\n    ],\n    \"attributes\": {\n        \"BusinessParking\": {\n            \"garage\": true,\n            \"street\": false,\n            \"validated\": false,\n            \"lot\": true,\n            \"valet\": true\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/users/email_1@gmail.com/events",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"email_1@gmail.com",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Events By UserId (email) Path Param",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user_id\": \"aws_cognito_identity_1\",\n  \"email\": \"email1@gmail.com\",\n  \"name\": \"Sala Thai 3\",\n  \"categories\": [\n    \"thai food\",\n    \"restaurant\"\n  ],\n  \"address\": \"420 Thai Blvd\",\n  \"city\": \"Dublin\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94568\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/users/email_2@gmail.com/events",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"email_2@gmail.com",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Event By event_type FIRST CALL",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user_id\": \"aws_cognito_identity_1\",\n  \"email\": \"email1@gmail.com\",\n  \"name\": \"Sala Thai 3\",\n  \"categories\": [\n    \"thai food\",\n    \"restaurant\"\n  ],\n  \"address\": \"420 Thai Blvd\",\n  \"city\": \"Dublin\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94568\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/events?event_type=sports&city=San Jose",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"events"
+					],
+					"query": [
+						{
+							"key": "event_type",
+							"value": "sports"
+						},
+						{
+							"key": "city",
+							"value": "San Jose"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SEARCH Event By event_type SECOND TIME With lastEvaluatedKey",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user_id\": \"aws_cognito_identity_1\",\n  \"email\": \"email1@gmail.com\",\n  \"name\": \"Sala Thai 3\",\n  \"categories\": [\n    \"thai food\",\n    \"restaurant\"\n  ],\n  \"address\": \"420 Thai Blvd\",\n  \"city\": \"Dublin\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94568\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/businesses?event_type=restaurant&city=San Jose&last_key_city=San Jose&last_key_business_id=e9a7c61e-3f16-4ce6-a99b-3ab9cbf13970",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"businesses"
+					],
+					"query": [
+						{
+							"key": "event_type",
+							"value": "restaurant"
+						},
+						{
+							"key": "city",
+							"value": "San Jose"
+						},
+						{
+							"key": "last_key_city",
+							"value": "San Jose"
+						},
+						{
+							"key": "last_key_business_id",
+							"value": "e9a7c61e-3f16-4ce6-a99b-3ab9cbf13970"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Review",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"cool\": 10,\n  \"funny\": 20,\n  \"stars\": 5,\n  \"text\": \"awesome food\",\n  \"useful\": 1,\n  \"user_id\": \"reviewer_1@gmail.com\",\n  \"username\": \"gal_1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/events/733e9e40-a464-499c-ba3d-dc949e6e09b1/reviews",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"events",
+						"733e9e40-a464-499c-ba3d-dc949e6e09b1",
+						"reviews"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Business",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Maria Maria NEW\",\n  \"categories\": [\n    \"mexican food\",\n    \"restaurant\"\n  ],\n  \"address\": \"710 Camino Ramon\",\n  \"city\": \"Danville\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94526\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/businesses/6284b41e-b61a-4bab-92ad-7cabe7e3201f",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"businesses",
+						"6284b41e-b61a-4bab-92ad-7cabe7e3201f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Event",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user_id\": \"aws_cognito_identity_1\",\n  \"email\": \"email1@gmail.com\",\n  \"name\": \"Sala Thai 3\",\n  \"categories\": [\n    \"thai food\",\n    \"restaurant\"\n  ],\n  \"address\": \"420 Thai Blvd\",\n  \"city\": \"Dublin\",\n  \"state\": \"CA\",\n  \"postal_code\": \"94568\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/users/email_2@gmail.com/events/c30b8578-3706-419b-825c-1b37d1441282",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"email_2@gmail.com",
+						"events",
+						"c30b8578-3706-419b-825c-1b37d1441282"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
