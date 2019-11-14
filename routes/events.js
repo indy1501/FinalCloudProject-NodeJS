@@ -30,8 +30,8 @@ router.get('', async (req, res) => {
             '#city': 'city',
         },
         ExpressionAttributeValues: {
-            ':city': city,
-            ':event_type': event_type
+            ':city': city.toLowerCase(),
+            ':event_type': event_type.toLowerCase()
         }
     };
     if (req.query.last_key_city && req.query.last_key_event_id) {
@@ -91,9 +91,9 @@ router.put('/:event_id', async (req, res) => {
             ExpressionAttributeValues: {
                 ":event_name": req.body.name,
                 ":location": req.body.location,
-                ":categories": req.body.categories,
+                ":categories": req.body.categories.join().toLowerCase(),
                 ":address": req.body.address,
-                ":city": req.body.city,
+                ":city": req.body.city.toLowerCase(),
                 ":state": req.body.state,
                 ":postal_code": req.body.postal_code,
                 ":attributes": req.body.attributes,

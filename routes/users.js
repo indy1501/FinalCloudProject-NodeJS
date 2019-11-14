@@ -20,10 +20,10 @@ router.post('/:user_id/events', async (req, res) => {
             "event_name": req.body.name,
             "location": req.body.location,
             "address": req.body.address,
-            "city": req.body.city,
+            "city": req.body.city.toLowerCase(),
             "state": req.body.state,
             "postal_code": req.body.postal_code,
-            "categories": req.body.categories.join(),
+            "categories": req.body.categories.join().toLowerCase(),
             "attributes": req.body.attributes,
             "user_id": req.params.user_id
         },
