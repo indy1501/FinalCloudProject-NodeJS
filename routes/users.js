@@ -94,5 +94,58 @@ router.delete('/:user_id/events/:event_id', async (req, res) => {
     }
 })
 
+router.post('/:user_id/card', async (req, res) => {
+    let result;
+    const user_card_params = {
+        TableName: "user_details",
+        Item: {
+            "user_id": req.params.user_id,
+            "card_holder_name": req.body.card_holder_name,
+            "card_number": req.body.card_number,
+            "expiry_date": req.body.expiry_date,
+            "cvv": req.body.cvv
+        },
+        ConditionExpression: "attribute_not_exists(user_id)"
+    };
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    try {
+        result = await dynamodbDocClient.put(user_card_params).promise();
+    } catch (err) {
+        console.error("Unable to add user card details", JSON.stringify(err));
+        return res.status(500).json({error: "Unable to add user card details"});
+    }
+    res.status(200).json({message: "card added successfully"});
+});
+
+router.get('/:user_id/card', async (req, res) => {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    const user_id = req.params.user_id;
+    let card_results;
+    const card_params = {
+        TableName: "user_details",
+        KeyConditionExpression: "#user_id = :user_id",
+        ExpressionAttributeNames: {
+            '#user_id': 'user_id',
+        },
+        ExpressionAttributeValues: {
+            ':user_id': user_id
+        }
+    };
+    try {
+        card_results = await dynamodbDocClient.query(card_params).promise();
+        console.log("card_results :", card_results);
+
+        if (card_results && card_results.Items && card_results.Items.length > 0) {
+            console.log("events Query results", card_results.Items);
+            return res.json(card_results.Items);
+        } else {
+            return res.status(404).json({error: "card not found"});
+        }
+    } catch (err) {
+        res.status(500).json({error_message: "Error occurred while fetching card", error: err});
+    }
+});
+
 
 module.exports = router;

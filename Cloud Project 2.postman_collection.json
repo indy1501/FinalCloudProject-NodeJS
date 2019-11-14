@@ -47,6 +47,79 @@
 			"response": []
 		},
 		{
+			"name": "Get Card for user",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"url": {
+					"raw": "localhost:3001/users/email_1@gmail.com/card",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"email_1@gmail.com",
+						"card"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Card for user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJraWQiOiJzRE5maDc4R0RKUEtuV0xGbVgxd2RGclwvTHNpQzVpUFNRT0Y3dzNFM1ZFUT0iLCJhbGciOiJSUzI1NiJ9.eyJhdF9oYXNoIjoiMHZZZGtTXzJSYUFiZ3loZ3pIOGJsZyIsInN1YiI6ImEwNDY1YzE3LWMxMTQtNDgzYi04NjllLWNlYmIzNTA0YzMyMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9PT0wwZUtUM1IiLCJwaG9uZV9udW1iZXJfdmVyaWZpZWQiOmZhbHNlLCJjb2duaXRvOnVzZXJuYW1lIjoiYTA0NjVjMTctYzExNC00ODNiLTg2OWUtY2ViYjM1MDRjMzIzIiwiZ2l2ZW5fbmFtZSI6InJrYSIsImF1ZCI6IjZzZXI2NGg5c25yYWsydmpwOHJ0ZjQxZXRxIiwiZXZlbnRfaWQiOiJlMmNkZWJhZS1kZGMwLTQ1NDUtYjUyZi1kYWJmYjg3ZTI5MTYiLCJ0b2tlbl91c2UiOiJpZCIsImF1dGhfdGltZSI6MTU3MTkzNjEzNSwicGhvbmVfbnVtYmVyIjoiKzE5MjU5Njc2OTgwIiwiZXhwIjoxNTcxOTM5NzM1LCJpYXQiOjE1NzE5MzYxMzUsImZhbWlseV9uYW1lIjoia2FyIiwiZW1haWwiOiJya2FybmlrZGVhbHNAZ21haWwuY29tIn0.q4wSc88Zo-T3XSLugi2YZGdyUtLbY5dZoeQr9sW4IWMl1EjHZ_tgaQ79efnmKXqwg_r7DItzhk7aNA2Hd8uQBgL4DXePIlvPmKhgEdPQ5sBkAe96Udxnscm_AQxSNs9qw6aIkGY7AZsomiMgdJVe8Ezz7LdWsZpSe7Cqt4R1q5fC_Q-A24TsbHnOZXmJQg8PhqY0Y40WY1Po-CqEZx13fmXGHWd8MDOdcSJFs_Tlc1CMwV2Nknws0q7OPiHjK8Xe68ORQ9ul3aSfNz60yZtHgvveZAa6av2_yVqSn4yncTJSgcUByEM0A2LfRLhfN1HpyGAZqbiBOWliAjmT6PsHJg"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"card_holder_name\": \"Maria\",\n  \"card_number\":\"1234567812345678\",\n  \"expiry_date\":\"11/22\",\n  \"cvv\":\"420\",\n  \"oragnization\":\"Citi Bank\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/users/email_1@gmail.com/card",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"email_1@gmail.com",
+						"card"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET Events By UserId (email) Path Param",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -143,7 +216,7 @@
 			"response": []
 		},
 		{
-			"name": "SEARCH Event By event_type SECOND TIME With lastEvaluatedKey",
+			"name": "Search Event By event_type SECOND TIME With lastEvaluatedKey",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
