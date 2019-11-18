@@ -52,16 +52,16 @@ router.post('/fileupload', (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET');
     ccinfo = await getCCInfo(req.file.key);
-    console.log(ccinfo);
+    console.log("ccinfo",ccinfo);
     //return res.json({'imageUrl' : req.file.location, 'fileName': req.file.key});
-    //return res.json(ccinfo);
+    return res.json(ccinfo);
   });
 
 });
 
 function getCCInfo(filename){
 //function getCCInfo(filename){
-
+  return new Promise(resolve => {
   var params = {
     Image: {
      S3Object: {
@@ -115,11 +115,11 @@ function getCCInfo(filename){
           comprehendoutput["Organization"] = data.Entities[i].Text;
         }
       }
-      console.log("output",comprehendoutput);
-      return Promise.resolve(comprehendoutput);
+      //console.log("output",comprehendoutput);
+      return resolve(comprehendoutput);
     });
 
-    
+  })
   });
 
 }
