@@ -43,16 +43,16 @@ var upload = multer({
 
 const singleUpload = upload.single('file');
 
-router.post('/fileupload', function(req, res) {
-  singleUpload(req, res, function(err) {
+router.post('/fileupload', (req, res) => {
+  singleUpload(req, res, async (err) => {
     if (err) {
         console.log(err);
       return res.status(422).send({errors: [{title: 'File Upload Error', detail: err.message}] });
     }
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET');
-    ccinfo = getCCInfo(req.file.key);
-    //console.log(ccinfo);
+    ccinfo = await getCCInfo(req.file.key);
+    console.log(ccinfo);
     //return res.json({'imageUrl' : req.file.location, 'fileName': req.file.key});
     //return res.json(ccinfo);
   });
@@ -60,6 +60,7 @@ router.post('/fileupload', function(req, res) {
 });
 
 function getCCInfo(filename){
+//function getCCInfo(filename){
 
   var params = {
     Image: {
@@ -114,7 +115,8 @@ function getCCInfo(filename){
           comprehendoutput["Organization"] = data.Entities[i].Text;
         }
       }
-      console.log(comprehendoutput);
+      console.log("output",comprehendoutput);
+      return Promise.resolve(comprehendoutput);
     });
 
     
