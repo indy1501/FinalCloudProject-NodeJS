@@ -11,7 +11,7 @@ const uuid = require('uuidv4').default;
 // });
 const dynamodbDocClient = new AWS.DynamoDB.DocumentClient({
     region: "us-east-1",
-    endpoint: "http://dynamodb.us-east-1.amazonaws.com",
+    endpoint: process.env.endpoint,
     accessKeyId: process.env.accessKeyId,
     secretAccessKey: process.env.secretAccessKey}
 );
@@ -140,7 +140,7 @@ router.post('/:event_id/reviews', (req, res) => {
             console.error("Unable to add review to reviews table Error JSON:", JSON.stringify(err));
             return res.status(500).json({error: "Unable to add review to reviews table"});
         } else {
-            console.log("Result of adding to review to reviewstable ", result_reviews);
+            console.log("Result of adding to review to reviews table ", result_reviews);
             return res.status(200).json(result_reviews);
         }
     });
