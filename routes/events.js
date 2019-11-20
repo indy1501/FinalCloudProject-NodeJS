@@ -146,4 +146,31 @@ router.post('/:event_id/reviews', (req, res) => {
     });
 });
 
+router.post('/:event_id/booking', async (req, res) => {
+    let booking_id = uuid();
+    let event_id = req.params.event_id;
+    let result_booking;
+    const event_booking_params = {
+        TableName: "event_booking",
+        Item: {
+            "booking_id" : booking_id,
+            "event_id" : event_id,
+            "event_name" : req.body.name,
+            "location" : req.body.location,
+            "date" : req.body.date,
+            "ticket_count" : req.body.count,
+            "user_id" : req.body.user_id
+        },
+        ConditionExpression: "attribute_not_exists(booking_id)"
+    };
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    try{
+        result_booking = await dynamodbDocClient.put(event_booking_params).promise();
+    } catch (err) {
+        console.error("Unable to add booking to event booking table", JSON.stringify(err));
+        return res.status(500).json({error: "Unable to add booking to event booking table"});
+    }
+    res.status(200).json({message: "Booking created successfully"})
+})
+
 module.exports = router;
