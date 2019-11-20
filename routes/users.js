@@ -3,13 +3,18 @@ const AWS = require('aws-sdk');
 const router = new express.Router();
 const uuid = require('uuidv4').default;
 
-AWS.config.update({
-    region: process.env.region,
-    endpoint: process.env.endpoint,
+// AWS.config.update({
+//     region: process.env.region,
+//     endpoint: process.env.endpointdynamodb,
+//     accessKeyId: process.env.accessKeyId,
+//     secretAccessKey: process.env.secretAccessKey
+// });
+const dynamodbDocClient = new AWS.DynamoDB.DocumentClient({
+    region: "us-east-1",
+    endpoint: "http://dynamodb.us-east-1.amazonaws.com",
     accessKeyId: process.env.accessKeyId,
-    secretAccessKey: process.env.secretAccessKey
-});
-const dynamodbDocClient = new AWS.DynamoDB.DocumentClient();
+    secretAccessKey: process.env.secretAccessKey}
+);
 
 router.post('/:user_id/events', async (req, res) => {
     let result_events;
@@ -102,11 +107,11 @@ router.post('/:user_id/card', async (req, res) => {
             "user_id": req.params.user_id,
             "card_holder_name": req.body.card_holder_name,
             "card_number": req.body.card_number,
-            "expiry_date": req.body.expiry_date,
-            "cvv": req.body.cvv
+            "expiry_date": req.body.expiry_date
         },
         ConditionExpression: "attribute_not_exists(user_id)"
     };
+    console.log(user_card_params);
     res.setHeader('Access-Control-Allow-Origin', '*');
     try {
         result = await dynamodbDocClient.put(user_card_params).promise();

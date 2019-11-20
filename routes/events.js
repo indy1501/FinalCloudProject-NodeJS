@@ -3,13 +3,20 @@ const AWS = require('aws-sdk');
 const router = new express.Router();
 const uuid = require('uuidv4').default;
 
-AWS.config.update({
-    region: process.env.region,
-    endpoint: process.env.endpoint,
+// AWS.config.update({
+//     region: process.env.region,
+//     endpoint: process.env.endpointdynamodb,
+//     accessKeyId: process.env.accessKeyId,
+//     secretAccessKey: process.env.secretAccessKey
+// });
+const dynamodbDocClient = new AWS.DynamoDB.DocumentClient({
+    region: "us-east-1",
+    endpoint: "http://dynamodb.us-east-1.amazonaws.com",
     accessKeyId: process.env.accessKeyId,
-    secretAccessKey: process.env.secretAccessKey
-});
-const dynamodbDocClient = new AWS.DynamoDB.DocumentClient();
+    secretAccessKey: process.env.secretAccessKey}
+);
+
+console.log("events",AWS.config);
 
 router.get('', async (req, res) => {
     let city, event_type;
