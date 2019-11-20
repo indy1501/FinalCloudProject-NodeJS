@@ -16,7 +16,7 @@ var comprehendoutput = {};
 
 
 let awsConfig = {
-  "region": process.env.region,
+  "region": "us-east-2",
   "accessKeyId": process.env.accessKeyId, 
   "secretAccessKey": process.env.secretAccessKey
  };
@@ -25,6 +25,7 @@ var s3 = new AWS.S3();
 
 const rekognition = new AWS.Rekognition();
 const comprehend = new AWS.Comprehend();
+console.log("fileupload",AWS.config);
 
 var upload = multer({
     storage: multerS3({
@@ -60,18 +61,17 @@ router.post('/fileupload', (req, res) => {
 });
 
 function getCCInfo(filename){
-//function getCCInfo(filename){
   return new Promise(resolve => {
-  var params = {
-    Image: {
-     S3Object: {
-      Bucket: "cloudstoragebucket1", 
-      Name: filename
-     }
+    var params = {
+      Image: {
+       S3Object: {
+        Bucket: "cloudstoragebucket1", 
+        Name: filename
+       }
     }
-   };
+  };
 
-  
+  comprehendoutput["FileName"] = filename;
   //Detect text
   rekognition.detectText(params, function(err, data) {
     if (err) console.log(err);
@@ -80,30 +80,30 @@ function getCCInfo(filename){
    // console.log(data.TextDetections);
     for(var i = 0; i < data.TextDetections.length;i++){
       if(data.TextDetections[i].Type === 'LINE'){
-        detectedtxt = data.TextDetections[i].DetectedText;
-        if(numberregex.test(detectedtxt) && detectedtxt.length == 19)
-        {
-          comprehendoutput["CreditCardNumber"] = detectedtxt;
-        }
-        
+          detectedtxt = data.TextDetections[i].DetectedText;
+          if(numberregex.test(detectedtxt) && detectedtxt.length == 19)
+          {
+            comprehendoutput["CreditCardNumber"] = detectedtxt;
+          }
+          detectedTXT.push(data.TextDetections[i].DetectedText); 
       }
       if(data.TextDetections[i].Type === 'WORD'){
-        detectedtxt = data.TextDetections[i].DetectedText;
-        if(numberregex.test(detectedtxt) && datereg.test(detectedtxt))
-        {
-          comprehendoutput["ExpiryDate"] = detectedtxt;
-        }
+          detectedtxt = data.TextDetections[i].DetectedText;
+          if(numberregex.test(detectedtxt) && datereg.test(detectedtxt))
+          {
+            comprehendoutput["ExpiryDate"] = detectedtxt;
+          }
       }  
-      detectedTXT.push(data.TextDetections[i].DetectedText);    
+         
     } 
 
     comprehendinput = JSON.stringify(detectedTXT);
     
-    var params1 = {
+    var comprehend_params = {
       LanguageCode: "en",
       Text: comprehendinput
     };
-    comprehend.detectEntities(params1, function(err, data) {
+    comprehend.detectEntities(comprehend_params, function(err, data) {
       if (err) console.log(err, err.stack); // an error occurred
       else     console.log("comprehend success");           // successful response
       
