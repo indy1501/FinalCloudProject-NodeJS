@@ -317,6 +317,53 @@
   * **Code:** 500  <br />
     **Response Body:** <br />
      `{error_message: "Error occurred while deleting event", error: err}`
+     
+**Create an event booking**
+----
+  Register a new event booking for a given event id.
+
+* **URL**
+
+  `/events/event_id/booking`
+  
+  Sample Url
+  
+  `http://{hostname}/events/07f38a54-393a-4190-939c-7eeaaebae645/booking`
+* **Method:**
+
+  `POST`
+  
+*  **Request Body**
+
+   **Required:**
+   ``` 
+   {
+     "event name": "string",
+         "location": "string",
+         "date": "string",
+         "ticket_count": "string",
+         "user_id": "string"
+   }
+   ```
+   **Sample Request Body**
+      ``` 
+        {
+             "event name": "NFL Championship3",
+             "location": "Levis Stadium3",
+             "date": "11/18/2019",
+             "ticket_count": "3",
+             "user_id": "email123@gmail.com"
+        }
+      ```
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Response Body:** `"message": "Booking created successfully"`
+ 
+* **Error Response:**
+
+  * **Code:** 500  <br />
+    **Response Body:** `{error: "Unable to add booking to event booking table"}`
 
 AWS DYNAMODB CLI
 ============= 
@@ -393,4 +440,14 @@ aws dynamodb update-table \
     --global-secondary-index-updates \
     "[{\"Delete\":{\"IndexName\":\"users-index\"}}]" \
 --endpoint-url http://localhost:8000 
+```
+***Create Event Booking Table***
+```
+aws dynamodb create-table \
+    --table-name event_booking \
+    --attribute-definitions \
+        AttributeName=booking_id,AttributeType=S \
+    --key-schema AttributeName=booking_id,KeyType=HASH  \
+    --provisioned-throughput ReadCapacityUnits=10,WriteCapacityUnits=10 \
+   --endpoint-url http://localhost:8000
 ```
