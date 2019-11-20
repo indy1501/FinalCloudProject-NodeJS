@@ -364,6 +364,46 @@
 
   * **Code:** 500  <br />
     **Response Body:** `{error: "Unable to add booking to event booking table"}`
+    
+**Get event booking by user_id (emailId)**
+----
+  Get an event booking for a given user based on user_id which is the emailId .
+
+* **URL**
+
+  `/users/{:user_id}/booking`
+  
+  Sample Url
+  `http://{hostname}/users/email_2@gmail.com/booking`
+
+* **Method:**
+
+  `GET`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Sample Response Body** 
+
+   ``` 
+    [
+      [
+          {
+              "booking_id": "b6721929-c5f2-434c-8459-c00cba536fc5",
+              "date": "11/18/2019",
+              "location": "Levis Stadium",
+              "event_id": "faae9d9e-d5da-4a85-ab7b-7fed256318ac",
+              "user_id": "email543@gmail.com"
+          }
+      ]
+    ]
+   ```
+
+* **Error Response:**
+
+  * **Code:** 404  <br />
+    **Response Body:** `{error: "Bookings not found"}`
+    
 
 AWS DYNAMODB CLI
 ============= 
@@ -376,12 +416,14 @@ AWS DYNAMODB CLI
 ***Describe Tables*** <br />
 `aws dynamodb describe-table --table-name events --endpoint-url http://localhost:8000`<br />
 `aws dynamodb describe-table --table-name reviews --endpoint-url http://localhost:8000`<br />
+`aws dynamodb describe-table --table-name event_booking --endpoint-url http://localhost:8000`<br />
 
 ***Scan Table to see all items***<br />
 `aws dynamodb scan --table-name events --endpoint-url http://localhost:8000`<br />
 `aws dynamodb scan --table-name events --index-name city-index --endpoint-url http://localhost:8000`<br />
 `aws dynamodb scan --table-name events --users-name users-index --endpoint-url http://localhost:8000`<br />
 `aws dynamodb scan --table-name reviews --endpoint-url http://localhost:8000`<br />
+`aws dynamodb scan --table-name event_booking --endpoint-url http://localhost:8000`<br />
 
 ***Delete Table*** <br />
 `aws dynamodb delete-table --table-name events --endpoint-url http://localhost:8000`<br />
@@ -450,4 +492,15 @@ aws dynamodb create-table \
     --key-schema AttributeName=booking_id,KeyType=HASH  \
     --provisioned-throughput ReadCapacityUnits=10,WriteCapacityUnits=10 \
    --endpoint-url http://localhost:8000
+```
+
+***Create users-index Global Secondary Index on event booking table***
+```
+aws dynamodb update-table \
+    --table-name event_booking \
+    --attribute-definitions AttributeName=user_id,AttributeType=S \
+    --global-secondary-index-updates \
+    "[{\"Create\":{\"IndexName\": \"users-index\",\"KeySchema\":[{\"AttributeName\":\"user_id\",\"KeyType\":\"HASH\"}], \
+    \"ProvisionedThroughput\": {\"ReadCapacityUnits\": 10, \"WriteCapacityUnits\": 10},\"Projection\":{\"ProjectionType\":\"ALL\"}}}]" \
+--endpoint-url http://localhost:8000
 ```
