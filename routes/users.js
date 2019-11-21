@@ -22,7 +22,7 @@ router.post('/:user_id/events', async (req, res) => {
         TableName: "events",
         Item: {
             "event_id": uuid(),
-            "event_name": req.body.name,
+            "event_name": req.body.name.toLowerCase(),
             "location": req.body.location,
             "address": req.body.address,
             "city": req.body.city.toLowerCase(),
@@ -151,7 +151,6 @@ router.get('/:user_id/card', async (req, res) => {
         res.status(500).json({error_message: "Error occurred while fetching card", error: err});
     }
 });
-
 
 router.get('/:user_id/booking', async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
