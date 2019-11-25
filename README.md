@@ -405,7 +405,7 @@
     **Response Body:** `{error: "Bookings not found"}`
     
 
-**Get all events **
+**Get all events**
 ----
   Get all events.
 
