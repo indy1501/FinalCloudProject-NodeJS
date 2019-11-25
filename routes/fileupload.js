@@ -7,9 +7,9 @@ const router = express.Router()
 router.use(bodyParser.json())
 require('dotenv').config();
 
-var detectedTXT = [];
+//var detectedTXT = [];
 var comprehendinput = {};
-var detectedtxt;
+var detectedtxt, detectedTXT = "";
 var numberregex = /\d/;
 var datereg = /^\d{2}\/\d{2}$/;
 var comprehendoutput = {};
@@ -85,7 +85,8 @@ function getCCInfo(filename){
           {
             comprehendoutput["CreditCardNumber"] = detectedtxt;
           }
-          detectedTXT.push(data.TextDetections[i].DetectedText); 
+          //detectedTXT.push(data.TextDetections[i].DetectedText); 
+          detectedTXT = detectedTXT + " " + data.TextDetections[i].DetectedText;
       }
       if(data.TextDetections[i].Type === 'WORD'){
           detectedtxt = data.TextDetections[i].DetectedText;
@@ -97,11 +98,11 @@ function getCCInfo(filename){
          
     } 
 
-    comprehendinput = JSON.stringify(detectedTXT);
+    //comprehendinput = JSON.stringify(detectedTXT);
     
     var comprehend_params = {
       LanguageCode: "en",
-      Text: comprehendinput
+      Text: detectedTXT
     };
     comprehend.detectEntities(comprehend_params, function(err, data) {
       if (err) console.log(err, err.stack); // an error occurred
