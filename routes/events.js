@@ -10,7 +10,7 @@ const uuid = require('uuidv4').default;
 //     secretAccessKey: process.env.secretAccessKey
 // });
 const dynamodbDocClient = new AWS.DynamoDB.DocumentClient({
-    region: "us-east-1",
+    region: process.env.region,
     endpoint: process.env.endpoint,
     accessKeyId: process.env.accessKeyId,
     secretAccessKey: process.env.secretAccessKey}
