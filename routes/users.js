@@ -19,6 +19,8 @@ router.post('/:user_id/events', async (req, res) => {
             "event_name": req.body.name.toLowerCase(),
             "location": req.body.location,
             "address": req.body.address,
+            "date": req.body.date,
+            "time": req.body.time,
             "city": req.body.city.toLowerCase(),
             "state": req.body.state,
             "postal_code": req.body.postal_code,
