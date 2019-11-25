@@ -3,15 +3,10 @@ const AWS = require('aws-sdk');
 const router = new express.Router();
 const uuid = require('uuidv4').default;
 
-// AWS.config.update({
-//     region: process.env.region,
-//     endpoint: process.env.endpointdynamodb,
-//     accessKeyId: process.env.accessKeyId,
-//     secretAccessKey: process.env.secretAccessKey
-// });
 const dynamodbDocClient = new AWS.DynamoDB.DocumentClient({
     region: process.env.region,
-    endpoint: process.env.endpoint,
+
+    endpoint: "http://dynamodb.us-east-1.amazonaws.com",
     accessKeyId: process.env.accessKeyId,
     secretAccessKey: process.env.secretAccessKey}
 );
@@ -171,6 +166,30 @@ router.post('/:event_id/booking', async (req, res) => {
         return res.status(500).json({error: "Unable to add booking to event booking table"});
     }
     res.status(200).json({message: "Booking created successfully"})
+})
+
+router.get('/all', async (req, res) => {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    //const user_id = req.params.user_id;
+    console.log("Fetching all records");
+    let event_results;
+    const event_params = {
+        TableName: "events",
+    };
+    try {
+        event_results = await dynamodbDocClient.scan(event_params).promise();
+        console.log("event_results :", event_results);
+
+        if (event_results && event_results.Items && event_results.Items.length > 0) {
+            console.log("events Query results", event_results.Items);
+            return res.json(event_results.Items);
+        } else {
+            return res.status(404).json({error: "events not found"});
+        }
+    } catch (err) {
+        res.status(500).json({error_message: "Error occurred while fetching event", error: err});
+    }
 })
 
 module.exports = router;
