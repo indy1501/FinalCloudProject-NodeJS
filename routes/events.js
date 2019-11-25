@@ -167,4 +167,28 @@ router.post('/:event_id/booking', async (req, res) => {
     res.status(200).json({message: "Booking created successfully"})
 })
 
+router.get('/all', async (req, res) => {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    //const user_id = req.params.user_id;
+    console.log("Fetching all records");
+    let event_results;
+    const event_params = {
+        TableName: "events",
+    };
+    try {
+        event_results = await dynamodbDocClient.scan(event_params).promise();
+        console.log("event_results :", event_results);
+
+        if (event_results && event_results.Items && event_results.Items.length > 0) {
+            console.log("events Query results", event_results.Items);
+            return res.json(event_results.Items);
+        } else {
+            return res.status(404).json({error: "events not found"});
+        }
+    } catch (err) {
+        res.status(500).json({error_message: "Error occurred while fetching event", error: err});
+    }
+})
+
 module.exports = router;
