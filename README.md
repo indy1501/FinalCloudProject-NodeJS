@@ -317,7 +317,144 @@
   * **Code:** 500  <br />
     **Response Body:** <br />
      `{error_message: "Error occurred while deleting event", error: err}`
+     
+**Create an event booking**
+----
+  Register a new event booking for a given event id.
 
+* **URL**
+
+  `/events/event_id/booking`
+  
+  Sample Url
+  
+  `http://{hostname}/events/07f38a54-393a-4190-939c-7eeaaebae645/booking`
+* **Method:**
+
+  `POST`
+  
+*  **Request Body**
+
+   **Required:**
+   ``` 
+   {
+     "event name": "string",
+         "location": "string",
+         "date": "string",
+         "ticket_count": "string",
+         "user_id": "string"
+   }
+   ```
+   **Sample Request Body**
+      ``` 
+        {
+             "event name": "NFL Championship3",
+             "location": "Levis Stadium3",
+             "date": "11/18/2019",
+             "ticket_count": "3",
+             "user_id": "email123@gmail.com"
+        }
+      ```
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Response Body:** `"message": "Booking created successfully"`
+ 
+* **Error Response:**
+
+  * **Code:** 500  <br />
+    **Response Body:** `{error: "Unable to add booking to event booking table"}`
+    
+**Get event booking by user_id (emailId)**
+----
+  Get an event booking for a given user based on user_id which is the emailId .
+
+* **URL**
+
+  `/users/{:user_id}/booking`
+  
+  Sample Url
+  `http://{hostname}/users/email_2@gmail.com/booking`
+
+* **Method:**
+
+  `GET`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Sample Response Body** 
+
+   ``` 
+    [
+      [
+          {
+              "booking_id": "b6721929-c5f2-434c-8459-c00cba536fc5",
+              "date": "11/18/2019",
+              "location": "Levis Stadium",
+              "event_id": "faae9d9e-d5da-4a85-ab7b-7fed256318ac",
+              "user_id": "email543@gmail.com"
+          }
+      ]
+    ]
+   ```
+
+* **Error Response:**
+
+  * **Code:** 404  <br />
+    **Response Body:** `{error: "Bookings not found"}`
+    
+
+**Get all events**
+----
+  Get all events.
+
+* **URL**
+
+  `/events/all`
+  
+  Sample Url
+  `http://{hostname}/events/all`
+
+* **Method:**
+
+  `GET`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Sample Response Body** 
+
+   ``` 
+    [
+      {
+        "event_id": "9f29cacb-f40d-41e7-bca0-7a5655370b39",
+        "address": "235 Great America Pkwy2",
+        "city": "San Jose2",
+        "user_id": "email_2@gmail.com",
+        "event_name": "NFL Championship2",
+        "location": "Levis Stadium2",
+        "attributes": {
+          "BusinessParking": {
+            "garage": true,
+            "lot": true,
+            "validated": false,
+            "valet": true,
+            "street": false
+          }
+        },
+        "state": "CA2",
+        "categories": "sports2,active life2,football2",
+        "postal_code": "94526"
+      }
+    ]
+   ```
+
+* **Error Response:**
+
+  * **Code:** 404  <br />
+    **Response Body:** `{error: "Events not found"}`
+    
 AWS DYNAMODB CLI
 ============= 
 ***Start Local DynamoDB from location where dynamo jar file is present*** <br />
@@ -329,12 +466,14 @@ AWS DYNAMODB CLI
 ***Describe Tables*** <br />
 `aws dynamodb describe-table --table-name events --endpoint-url http://localhost:8000`<br />
 `aws dynamodb describe-table --table-name reviews --endpoint-url http://localhost:8000`<br />
+`aws dynamodb describe-table --table-name event_booking --endpoint-url http://localhost:8000`<br />
 
 ***Scan Table to see all items***<br />
 `aws dynamodb scan --table-name events --endpoint-url http://localhost:8000`<br />
 `aws dynamodb scan --table-name events --index-name city-index --endpoint-url http://localhost:8000`<br />
 `aws dynamodb scan --table-name events --users-name users-index --endpoint-url http://localhost:8000`<br />
 `aws dynamodb scan --table-name reviews --endpoint-url http://localhost:8000`<br />
+`aws dynamodb scan --table-name event_booking --endpoint-url http://localhost:8000`<br />
 
 ***Delete Table*** <br />
 `aws dynamodb delete-table --table-name events --endpoint-url http://localhost:8000`<br />
@@ -393,4 +532,25 @@ aws dynamodb update-table \
     --global-secondary-index-updates \
     "[{\"Delete\":{\"IndexName\":\"users-index\"}}]" \
 --endpoint-url http://localhost:8000 
+```
+***Create Event Booking Table***
+```
+aws dynamodb create-table \
+    --table-name event_booking \
+    --attribute-definitions \
+        AttributeName=booking_id,AttributeType=S \
+    --key-schema AttributeName=booking_id,KeyType=HASH  \
+    --provisioned-throughput ReadCapacityUnits=10,WriteCapacityUnits=10 \
+   --endpoint-url http://localhost:8000
+```
+
+***Create users-index Global Secondary Index on event booking table***
+```
+aws dynamodb update-table \
+    --table-name event_booking \
+    --attribute-definitions AttributeName=user_id,AttributeType=S \
+    --global-secondary-index-updates \
+    "[{\"Create\":{\"IndexName\": \"users-index\",\"KeySchema\":[{\"AttributeName\":\"user_id\",\"KeyType\":\"HASH\"}], \
+    \"ProvisionedThroughput\": {\"ReadCapacityUnits\": 10, \"WriteCapacityUnits\": 10},\"Projection\":{\"ProjectionType\":\"ALL\"}}}]" \
+--endpoint-url http://localhost:8000
 ```

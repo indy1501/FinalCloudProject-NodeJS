@@ -3,14 +3,8 @@ const AWS = require('aws-sdk');
 const router = new express.Router();
 const uuid = require('uuidv4').default;
 
-// AWS.config.update({
-//     region: process.env.region,
-//     endpoint: process.env.endpointdynamodb,
-//     accessKeyId: process.env.accessKeyId,
-//     secretAccessKey: process.env.secretAccessKey
-// });
 const dynamodbDocClient = new AWS.DynamoDB.DocumentClient({
-    region: "us-east-1",
+    region: process.env.region,
     endpoint: "http://dynamodb.us-east-1.amazonaws.com",
     accessKeyId: process.env.accessKeyId,
     secretAccessKey: process.env.secretAccessKey}
@@ -22,7 +16,7 @@ router.post('/:user_id/events', async (req, res) => {
         TableName: "events",
         Item: {
             "event_id": uuid(),
-            "event_name": req.body.name,
+            "event_name": req.body.name.toLowerCase(),
             "location": req.body.location,
             "address": req.body.address,
             "city": req.body.city.toLowerCase(),
@@ -152,5 +146,35 @@ router.get('/:user_id/card', async (req, res) => {
     }
 });
 
+router.get('/:user_id/booking', async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    const user_id = req.params.user_id;
+    console.log("Fetching bookings based on userid", user_id);
+    let booking_results;
+    const booking_params = {
+        TableName: "event_booking",
+        IndexName: 'users-index',
+        KeyConditionExpression: "#user_id = :user_id",
+        ExpressionAttributeNames: {
+            '#user_id': 'user_id',
+        },
+        ExpressionAttributeValues: {
+            ':user_id': user_id
+        }
+    };
+    try {
+        booking_results = await dynamodbDocClient.query(booking_params).promise();
+        console.log("booking_results :", booking_results);
+
+        if(booking_results && booking_results.Items && booking_results.Items.length > 0 ) {
+            console.log("bookings Query results", booking_results.Items);
+            return res.json(booking_results.Items);
+        } else {
+            return res.status(404).json({error: "Bookings not found"});
+        }
+    } catch (err) {
+        res.status(500).json({error_message: "Error occurred while fetching booking", error: err});
+    }
+})
 
 module.exports = router;

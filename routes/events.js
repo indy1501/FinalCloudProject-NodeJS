@@ -3,14 +3,8 @@ const AWS = require('aws-sdk');
 const router = new express.Router();
 const uuid = require('uuidv4').default;
 
-// AWS.config.update({
-//     region: process.env.region,
-//     endpoint: process.env.endpointdynamodb,
-//     accessKeyId: process.env.accessKeyId,
-//     secretAccessKey: process.env.secretAccessKey
-// });
 const dynamodbDocClient = new AWS.DynamoDB.DocumentClient({
-    region: "us-east-1",
+    region: process.env.region,
     endpoint: "http://dynamodb.us-east-1.amazonaws.com",
     accessKeyId: process.env.accessKeyId,
     secretAccessKey: process.env.secretAccessKey}
@@ -140,10 +134,61 @@ router.post('/:event_id/reviews', (req, res) => {
             console.error("Unable to add review to reviews table Error JSON:", JSON.stringify(err));
             return res.status(500).json({error: "Unable to add review to reviews table"});
         } else {
-            console.log("Result of adding to review to reviewstable ", result_reviews);
+            console.log("Result of adding to review to reviews table ", result_reviews);
             return res.status(200).json(result_reviews);
         }
     });
 });
+
+router.post('/:event_id/booking', async (req, res) => {
+    let booking_id = uuid();
+    let event_id = req.params.event_id;
+    let result_booking;
+    const event_booking_params = {
+        TableName: "event_booking",
+        Item: {
+            "booking_id" : booking_id,
+            "event_id" : event_id,
+            "event_name" : req.body.name,
+            "location" : req.body.location,
+            "date" : req.body.date,
+            "ticket_count" : req.body.count,
+            "user_id" : req.body.user_id
+        },
+        ConditionExpression: "attribute_not_exists(booking_id)"
+    };
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    try{
+        result_booking = await dynamodbDocClient.put(event_booking_params).promise();
+    } catch (err) {
+        console.error("Unable to add booking to event booking table", JSON.stringify(err));
+        return res.status(500).json({error: "Unable to add booking to event booking table"});
+    }
+    res.status(200).json({message: "Booking created successfully"})
+})
+
+router.get('/all', async (req, res) => {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    //const user_id = req.params.user_id;
+    console.log("Fetching all records");
+    let event_results;
+    const event_params = {
+        TableName: "events",
+    };
+    try {
+        event_results = await dynamodbDocClient.scan(event_params).promise();
+        console.log("event_results :", event_results);
+
+        if (event_results && event_results.Items && event_results.Items.length > 0) {
+            console.log("events Query results", event_results.Items);
+            return res.json(event_results.Items);
+        } else {
+            return res.status(404).json({error: "events not found"});
+        }
+    } catch (err) {
+        res.status(500).json({error_message: "Error occurred while fetching event", error: err});
+    }
+})
 
 module.exports = router;
