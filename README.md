@@ -405,6 +405,56 @@
     **Response Body:** `{error: "Bookings not found"}`
     
 
+**Get all events **
+----
+  Get all events.
+
+* **URL**
+
+  `/events/all`
+  
+  Sample Url
+  `http://{hostname}/events/all`
+
+* **Method:**
+
+  `GET`
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Sample Response Body** 
+
+   ``` 
+    [
+      {
+        "event_id": "9f29cacb-f40d-41e7-bca0-7a5655370b39",
+        "address": "235 Great America Pkwy2",
+        "city": "San Jose2",
+        "user_id": "email_2@gmail.com",
+        "event_name": "NFL Championship2",
+        "location": "Levis Stadium2",
+        "attributes": {
+          "BusinessParking": {
+            "garage": true,
+            "lot": true,
+            "validated": false,
+            "valet": true,
+            "street": false
+          }
+        },
+        "state": "CA2",
+        "categories": "sports2,active life2,football2",
+        "postal_code": "94526"
+      }
+    ]
+   ```
+
+* **Error Response:**
+
+  * **Code:** 404  <br />
+    **Response Body:** `{error: "Events not found"}`
+    
 AWS DYNAMODB CLI
 ============= 
 ***Start Local DynamoDB from location where dynamo jar file is present*** <br />
