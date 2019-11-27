@@ -192,4 +192,36 @@ router.get('/all', async (req, res) => {
     }
 })
 
+router.get('/:event_id', async (req, res) => {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    const event_id = req.params.event_id;
+    console.log("Getting event based on event id", event_id);
+    try {
+        const events_param = {
+            TableName: "events",
+            KeyConditionExpression: "#event_id = :event_id",
+            ExpressionAttributeNames: {
+                '#event_id': 'event_id',
+            },
+            ExpressionAttributeValues: {
+                ':event_id': event_id
+            }
+        };
+        let event_result;
+
+        event_result = await dynamodbDocClient.query(events_param).promise();
+        console.log("event query results :", event_result);
+        if(event_result && event_result.Items && event_result.Items.length > 0) {
+            console.log("Event Query results", event_result.Items);
+            return res.json(event_result.Items);
+        }
+        else {
+            return res.status(404).json({error: "Business not found"});
+        }
+    }
+    catch (err) {
+        res.status(500).json({error_message: "Error occurred while fetching business", error: err});
+    }
+})
 module.exports = router;
