@@ -217,11 +217,11 @@ router.get('/:event_id', async (req, res) => {
             return res.json(event_result.Items);
         }
         else {
-            return res.status(404).json({error: "Business not found"});
+            return res.status(404).json({error: "Event not found"});
         }
     }
     catch (err) {
-        res.status(500).json({error_message: "Error occurred while fetching business", error: err});
+        res.status(500).json({error_message: "Error occurred while fetching event", error: err});
     }
 })
 module.exports = router;
