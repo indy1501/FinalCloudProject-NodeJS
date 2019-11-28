@@ -19,7 +19,7 @@ exports.handler = (event, context, callback) => {
             TableName: "events",
             FilterExpression: 'contains (event_name, :eventname)',
             ExpressionAttributeValues: {
-                ':eventname': eventName,
+                ':eventname': eventName.toLowerCase(),
             },
         }; 
         
@@ -70,8 +70,8 @@ exports.handler = (event, context, callback) => {
                 '#city': 'city'
             },
             ExpressionAttributeValues: {
-                ':city': eventLocation,
-                ':eventname': eventName
+                ':city': eventLocation.toLowerCase(),
+                ':eventname': eventName.toLowerCase()
             }
         };
         dynamoDb.query(event_search_params, (error, result) => {
