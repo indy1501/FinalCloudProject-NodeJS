@@ -5,6 +5,7 @@ const uuid = require('uuidv4').default;
 
 const dynamodbDocClient = new AWS.DynamoDB.DocumentClient({
     region: process.env.region,
+
     endpoint: "http://dynamodb.us-east-1.amazonaws.com",
     accessKeyId: process.env.accessKeyId,
     secretAccessKey: process.env.secretAccessKey}
@@ -191,4 +192,36 @@ router.get('/all', async (req, res) => {
     }
 })
 
+router.get('/:event_id', async (req, res) => {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    const event_id = req.params.event_id;
+    console.log("Getting event based on event id", event_id);
+    try {
+        const events_param = {
+            TableName: "events",
+            KeyConditionExpression: "#event_id = :event_id",
+            ExpressionAttributeNames: {
+                '#event_id': 'event_id',
+            },
+            ExpressionAttributeValues: {
+                ':event_id': event_id
+            }
+        };
+        let event_result;
+
+        event_result = await dynamodbDocClient.query(events_param).promise();
+        console.log("event query results :", event_result);
+        if(event_result && event_result.Items && event_result.Items.length > 0) {
+            console.log("Event Query results", event_result.Items);
+            return res.json(event_result.Items);
+        }
+        else {
+            return res.status(404).json({error: "Event not found"});
+        }
+    }
+    catch (err) {
+        res.status(500).json({error_message: "Error occurred while fetching event", error: err});
+    }
+})
 module.exports = router;

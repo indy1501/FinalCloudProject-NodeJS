@@ -4,6 +4,7 @@ require('dotenv').config();
 const events = require('./routes/events');
 const users = require('./routes/users');
 const fileupload =  require('./routes/fileupload');
+/* const photoUpload =  require('./routes/photoUpload'); */
 const app = express();
 const bodyparser = require("body-parser");
 const port = process.env.PORT || 8080;
@@ -15,6 +16,7 @@ app.use(bodyparser.urlencoded({extended: false}));
 app.use('/events', events);
 app.use('/users', users);
 app.use('/api', fileupload);
+/* app.use('/photoUpload', photoUpload); */
 
 app.get('/', function (req, res) {
     res.send('Hello World')
