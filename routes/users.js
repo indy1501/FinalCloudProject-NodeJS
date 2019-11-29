@@ -154,14 +154,14 @@ router.get('/:user_id/booking', async (req, res) => {
     console.log("Fetching bookings based on userid", user_id);
     let booking_results;
     const booking_params = {
-        TableName: "event_booking",
+        TableName: "EventBookings",
         IndexName: 'users-index',
-        KeyConditionExpression: "#user_id = :user_id",
+        KeyConditionExpression: "#UserEmail = :UserEmail",
         ExpressionAttributeNames: {
-            '#user_id': 'user_id',
+            '#UserEmail': 'UserEmail',
         },
         ExpressionAttributeValues: {
-            ':user_id': user_id
+            ':UserEmail': user_id
         }
     };
     try {
