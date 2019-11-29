@@ -324,7 +324,7 @@
 
 * **URL**
 
-  `/events/event_id/booking`
+  `/booking`
   
   Sample Url
   
@@ -338,21 +338,21 @@
    **Required:**
    ``` 
    {
-     "event name": "string",
-         "location": "string",
-         "date": "string",
-         "ticket_count": "string",
-         "user_id": "string"
+     "EventName": "string",
+         "EventLocation": "string",
+         "EventDate": "string",
+         "EventTickets": "string",
+         "UserEmail": "string"
    }
    ```
    **Sample Request Body**
       ``` 
         {
-             "event name": "NFL Championship3",
-             "location": "Levis Stadium3",
-             "date": "11/18/2019",
-             "ticket_count": "3",
-             "user_id": "email123@gmail.com"
+            "EventName": "nfl championship",
+            "EventLocation": "Levis Stadium3",
+            "EventDate": "12/25/2019",
+            "EventTickets": "11",
+            "UserEmail": "robert12020@gmail.com"
         }
       ```
 * **Success Response:**
@@ -389,12 +389,13 @@
     [
       [
           {
-              "booking_id": "b6721929-c5f2-434c-8459-c00cba536fc5",
-              "date": "11/18/2019",
-              "location": "Levis Stadium",
-              "event_id": "faae9d9e-d5da-4a85-ab7b-7fed256318ac",
-              "user_id": "email543@gmail.com"
-          }
+                  "EventTickets": "11",
+                  "EventLocation": "Levis Stadium3",
+                  "EventDate": "12/25/2019",
+                  "EventName": "nfl championship",
+                  "UserEmail": "robert12020@gmail.com",
+                  "BookingId": "46e4c83a-9a83-48c6-9ad0-5a7a1c4eae61"
+              }
       ]
     ]
    ```
@@ -587,10 +588,10 @@ aws dynamodb update-table \
 ***Create Event Booking Table***
 ```
 aws dynamodb create-table \
-    --table-name event_booking \
+    --table-name EventBookings \
     --attribute-definitions \
         AttributeName=booking_id,AttributeType=S \
-    --key-schema AttributeName=booking_id,KeyType=HASH  \
+    --key-schema AttributeName=BookingId,KeyType=HASH  \
     --provisioned-throughput ReadCapacityUnits=10,WriteCapacityUnits=10 \
    --endpoint-url http://localhost:8000
 ```
@@ -598,10 +599,11 @@ aws dynamodb create-table \
 ***Create users-index Global Secondary Index on event booking table***
 ```
 aws dynamodb update-table \
-    --table-name event_booking \
-    --attribute-definitions AttributeName=user_id,AttributeType=S \
+    --table-name EventBookings \
+    --attribute-definitions AttributeName=UserEmail,AttributeType=S \
     --global-secondary-index-updates \
-    "[{\"Create\":{\"IndexName\": \"users-index\",\"KeySchema\":[{\"AttributeName\":\"user_id\",\"KeyType\":\"HASH\"}], \
+    "[{\"Create\":{\"IndexName\": \"users-index\",\"KeySchema\":[{\"AttributeName\":\"UserEmail\",\"KeyType\":\"HASH\"}], \
     \"ProvisionedThroughput\": {\"ReadCapacityUnits\": 10, \"WriteCapacityUnits\": 10},\"Projection\":{\"ProjectionType\":\"ALL\"}}}]" \
 --endpoint-url http://localhost:8000
+
 ```
