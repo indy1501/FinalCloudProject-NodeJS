@@ -328,7 +328,7 @@
   
   Sample Url
   
-  `http://{hostname}/events/07f38a54-393a-4190-939c-7eeaaebae645/booking`
+  `http://{hostname}/booking`
 * **Method:**
 
   `POST`
