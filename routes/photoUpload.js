@@ -41,17 +41,19 @@ function deleteFileTemp(path) {
   
   router.post('/upload_photo', function (req, res) {
     console.log(req.files);
+    console.log(req.body);
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).send('No files were uploaded.');
     }
-    console.log(process.env.AWS_ACCESS_KEY, process.env.AWS_SECRET_ACCESS_KEY)
+    /* console.log(process.env.AWS_ACCESS_KEY, process.env.AWS_SECRET_ACCESS_KEY) */
   
     console.log("tempFilePath:" + req.files.inputFile.tempFilePath)
+    console.log("EventId:" + req.body.eventId)
     const fileContent = fs.createReadStream(req.files.inputFile.tempFilePath);
     console.log("mimetype: " + req.files.inputFile.mimetype)
     // Setting up S3 upload parameters
     const params = {
-      Bucket: "cloudhwbucket1/Images1",
+      Bucket: "cloudhwbucket1/"+req.body.eventId,
       Key: req.files.inputFile.name,
       ContentType: req.files.inputFile.mimetype,
       Body: fileContent

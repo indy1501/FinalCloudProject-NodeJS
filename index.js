@@ -5,7 +5,7 @@ const events = require('./routes/events');
 const users = require('./routes/users');
 const bookings = require('./routes/bookings');
 const fileupload =  require('./routes/fileupload');
-/* const photoUpload =  require('./routes/photoUpload'); */
+const photoUpload =  require('./routes/photoUpload');
 const app = express();
 const bodyparser = require("body-parser");
 const port = process.env.PORT || 8080;
@@ -18,7 +18,7 @@ app.use('/events', events);
 app.use('/users', users);
 app.use('/booking', bookings);
 app.use('/api', fileupload);
-/* app.use('/photoUpload', photoUpload); */
+app.use('/photoUpload', photoUpload);
 
 app.get('/', function (req, res) {
     res.send('Hello World')
