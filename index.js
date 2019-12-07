@@ -8,7 +8,7 @@ const fileupload =  require('./routes/fileupload');
 const photoUpload =  require('./routes/photoUpload');
 const app = express();
 const bodyparser = require("body-parser");
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3001;
 
 
 app.use(cors())
