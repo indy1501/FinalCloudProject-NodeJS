@@ -1,0 +1,21 @@
+# This is an appspec.yml template file for use with AWS CodeDeploy.
+version: 0.0
+os: linux 
+files:
+  - source: /
+    destination: /home/ubuntu/EventSync-app
+hooks:    
+  BeforeInstall:
+    - location: scripts/before_install.sh
+      timeout: 1200
+      runas: ubuntu
+  AfterInstall:
+    - location: scripts/after_install.sh
+      timeout: 1200
+      runas: ubuntu
+  ApplicationStart:
+    - location: scripts/application_start.sh
+      timeout: 3600
+      runas: ubuntu    
+
+
