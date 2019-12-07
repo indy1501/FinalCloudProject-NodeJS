@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+require('dotenv').config({path:'/home/ubuntu/.env'});
+
 const events = require('./routes/events');
 const users = require('./routes/users');
 const bookings = require('./routes/bookings');
