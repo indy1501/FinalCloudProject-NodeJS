@@ -85,6 +85,7 @@ router.get('/getFaceComparison', function (req, res) {
   console.log("tempFileName " + req.query.tempFileName);
   console.log("eventId " + req.query.eventId);
 
+
   if (!req.query.eventId) {
     return res.status(400).send(`Event ID is required`)
   }
@@ -104,16 +105,17 @@ router.get('/getFaceComparison', function (req, res) {
     }
 
     var matched = false;
+    const tempImage = "temp/"+req.query.tempFileName;
 
     data.Contents.forEach(
       obj => {
         console.log(obj);
 
-        const tempImage = "temp/"+req.query.tempFileName;
         compareImages(tempImage, obj.Key, (result)=> {
         console.log("Compared : ",tempImage, "with ",obj.Key, "result:"+result)
         if (result) {
           matched = true;
+          deleteS3image(tempImage)
           return res.status(200).send("matched");
         } 
        });
@@ -122,6 +124,7 @@ router.get('/getFaceComparison', function (req, res) {
 
     setTimeout(()=> {
       if(!matched) {
+        deleteS3image(tempImage)
         return res.status(403).send("unmatched");
       }
     }, 5000);
@@ -167,6 +170,32 @@ function compareImages(image1, image2, callBackFunc) {
   });
 
 
+}
+
+function deleteS3image(image1){
+    /* console.log("REQUEST param ", req.body); */
+    if (!image1) {
+      return 0;
+    }
+  
+    const fileDeletePath = image1
+    //const userId = req.body.userId
+    // Setting up S3 delete parameters
+    const params = {
+      Bucket: "cloudhwbucket1",
+      Key: fileDeletePath
+    };
+    // Deleting files to the bucket
+    s3.deleteObject(params, function (err, data) {
+      if (err) {
+        console.log("Error in deleting file", err);
+        return 0;
+      } else {
+        console.log(`File deleted successfully: ${fileDeletePath}`);
+        return 1;
+      }
+  
+    });
 }
 
 module.exports = router;
