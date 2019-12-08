@@ -27,7 +27,7 @@ app.get('/', function (req, res) {
 
 
 app.listen(port, function () {
-    console.log(' listening on port', port);
+    console.log('cicd check', port);
 });
 
 module.exports = app;
