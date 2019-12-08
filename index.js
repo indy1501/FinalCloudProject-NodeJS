@@ -22,12 +22,12 @@ app.use('/api', fileupload);
 app.use('/photoUpload', photoUpload);
 
 app.get('/', function (req, res) {
-    res.send('Hello World')
+    res.send('Hello World from code ninjas')
 })
 
 
 app.listen(port, function () {
-    console.log('cicd check', port);
+    console.log('listening on port', port);
 });
 
 module.exports = app;
