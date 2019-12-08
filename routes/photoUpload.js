@@ -8,7 +8,7 @@ AWS.config.update({ region: 'us-west-1' });
 const router = new express.Router();
 const uuid = require('uuidv4').default;
 const dotenv = require('dotenv');
-const parseResult = dotenv.config()
+const parseResult = dotenv.config({path:'/home/ubuntu/.env'})
 if (parseResult.error) {
   throw parseResult.error
 }
