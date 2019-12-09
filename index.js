@@ -22,7 +22,7 @@ app.use('/api', fileupload);
 app.use('/photoUpload', photoUpload);
 
 app.get('/', function (req, res) {
-    res.send('Hello World!!!')
+    res.send('We are team Code ninjas')
 })
 
 
