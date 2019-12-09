@@ -42,6 +42,7 @@ var upload = multer({
     })
 });
 
+
 const singleUpload = upload.single('file');
 
 router.post('/fileupload', (req, res) => {
