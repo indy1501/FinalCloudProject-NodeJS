@@ -86,12 +86,14 @@ router.put('/:event_id', async (req, res) => {
             Key: {
                 "event_id": event_id
             },
-            UpdateExpression: "set event_name = :event_name, location=:location, categories=:categories, address=:address, city=:city, #event_state=:state, postal_code=:postal_code, attributes=:attributes",
+            UpdateExpression: "set #event_name = :name,#event_location=:location, categories=:categories, address=:address, city=:city, #event_state=:state, postal_code=:postal_code, attributes=:attributes",
             ExpressionAttributeNames: {
-                '#event_state': 'state'
+                '#event_name': 'name',
+                '#event_state': 'state',
+                '#event_location': 'location'
             },
             ExpressionAttributeValues: {
-                ":event_name": req.body.name,
+                ":name": req.body.name,
                 ":location": req.body.location,
                 ":categories": req.body.categories.join().toLowerCase(),
                 ":address": req.body.address,
@@ -107,6 +109,7 @@ router.put('/:event_id', async (req, res) => {
         return res.json(events_update_result);
 
     } catch (err) {
+        console.log(err);
         res.status(500).json({error_message: "Error occurred while updating event", error: err});
     }
 })

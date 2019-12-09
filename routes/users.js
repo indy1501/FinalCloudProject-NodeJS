@@ -16,7 +16,7 @@ router.post('/:user_id/events', async (req, res) => {
         TableName: "events",
         Item: {
             "event_id": uuid(),
-            "event_name": req.body.name.toLowerCase(),
+            "name": req.body.name.toLowerCase(),
             "location": req.body.location,
             "address": req.body.address,
             "date": req.body.date,
