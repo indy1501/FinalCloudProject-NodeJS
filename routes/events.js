@@ -86,9 +86,8 @@ router.put('/:event_id', async (req, res) => {
             Key: {
                 "event_id": event_id
             },
-            UpdateExpression: "set #event_name = :name,#event_location=:location, categories=:categories, address=:address, city=:city, #event_state=:state, postal_code=:postal_code, attributes=:attributes",
+            UpdateExpression: "set event_name = :name,#event_location=:location, categories=:categories, address=:address, city=:city, #event_state=:state, postal_code=:postal_code, attributes=:attributes",
             ExpressionAttributeNames: {
-                '#event_name': 'name',
                 '#event_state': 'state',
                 '#event_location': 'location'
             },
