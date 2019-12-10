@@ -22,7 +22,7 @@ app.use('/api', fileupload);
 app.use('/photoUpload', photoUpload);
 
 app.get('/', function (req, res) {
-    res.send('This is EventSync!!!')
+    res.send('This is EventSync app!!!')
 })
 
 
